@@ -30,7 +30,6 @@ function LedMatrix(container, font, chars) {
                 result.push([false, false, false, false, false, false, false, false]);
             }
         }
-        console.log(result);
         return result;
     };
 
