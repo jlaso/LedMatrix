@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico?v=1"/>
+    <title>Cool Led Matrix</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="js/led-matrix.js?v=0.0002"></script>
+    <script src="js/simpleMatrixFont.js"></script>
+
+    <link id="style_loaded" href='css/led-matrix-square-green.css' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eee;
+        }
+
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #controls {
+            position: absolute;
+            top: 200px;
+        }
+    </style>
+
+    </head>
+
+<body>
+
+<!-- code to fork on github -->
+<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/jlaso/LedMatrix">Fork me on GitHub</a></span>
+
+<div id="container"></div>
+
+<div id="controls">
+    <input type="radio" name="color" value="square-green" checked> Green squared
+    <input type="radio" name="color" value="round-red"> Red rounded
+</div>
+
+</body>
+
+<script>
+
+    function reloadStylesheet(href) {
+        $('#style_loaded').attr('href', href + '?reload=' + new Date().getTime());
+    }
+
+    var ledMatrix;
+
+    $(document).ready(function () {
+
+        ledMatrix = new LedMatrix(
+            "#container",
+            window.font['simpleMatrix'],
+            12
+        );
+
+        ledMatrix.showMessage('\\This is a text written with LedMatrix from jlaso');
+
+        ledMatrix.animate(200,null);
+
+        $('input[name="color"]').click(function(evt){
+            ledMatrix.stopAnimate();
+            var cssToLoad = $('input[name="color"]:checked').val();
+            reloadStylesheet('css/led-matrix-' + cssToLoad +'.css');
+            ledMatrix.animate(200,null);
+        });
+
+    });
+</script>
+
+</html>
